@@ -50,8 +50,10 @@ export const auth = {
 			}
 		},
 		saveLoginData: ({ commit }, args) => {
+		
 			const { loginData, rememberUser } = args;
 			if(loginData?.user && loginData?.token){
+				
 				StorageService.saveLoginData(loginData, rememberUser);
 			}
 		},

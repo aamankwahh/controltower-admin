@@ -20,9 +20,12 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
+      '../main',
       'i18n',
       'axios',
+      'auth'
     ],
+
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
@@ -48,9 +51,9 @@ module.exports = configure(function (ctx) {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       env: {
-        APP_NAME: 'book2',
-        API_URL: 'http://localhost:8060/',
-        API_PATH: 'http://localhost:8060/api/'
+        APP_NAME: 'ControlTower',
+        API_URL: 'http://localhost:8000/',
+        API_PATH: 'http://localhost:8000/api/'
       },
       // transpile: false,
       // publicPath: '/',
@@ -81,7 +84,7 @@ module.exports = configure(function (ctx) {
       server: {
         type: 'http'
       },
-      port: 8080,
+      port: 8050,
       open: true // opens browser window automatically
     },
 

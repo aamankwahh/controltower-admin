@@ -19,6 +19,7 @@
     </q-page>
 </template>
 <script setup>
+    alert('hooome')
 	import {  computed, ref } from 'vue';
 	import { useApp } from 'src/composables/app.js';
 	const props = defineProps({

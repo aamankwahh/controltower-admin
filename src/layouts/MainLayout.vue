@@ -1,6 +1,6 @@
 <template>
     <q-layout view="hHh LpR lfr">
-        <template v-if="auth.isLoggedIn">
+        <template v-if="$auth.isLoggedIn">
             <!-- App header -->
             <q-header elevated >
                 <q-toolbar class="  glossy">

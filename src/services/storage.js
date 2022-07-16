@@ -17,6 +17,7 @@ export const StorageService = {
         return sessionStorage.getItem(TOKEN_KEY)  || localStorage.getItem(TOKEN_KEY);
     },
     saveLoginData(loginData, remember) {
+        
         let token = loginData.token;
         if(remember){
             localStorage.setItem(TOKEN_KEY, token);

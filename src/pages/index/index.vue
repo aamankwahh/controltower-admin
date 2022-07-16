@@ -14,7 +14,7 @@
                             <div >
                                 <q-card-section class="q-px-lg">
                                     <q-form ref="observer" @submit.prevent="startLogin()">
-                                    <q-input class="q-mb-md" label="Username Or Email" outlined dense placeholder="Username Or Email" v-model.trim="formData.username"  required="required" type="text" >
+                                    <q-input class="q-mb-md" label="Username Or Email" outlined dense placeholder="Username Or Email" v-model.trim="formData.email"  required="required" type="text" >
                                     <template v-slot:prepend>
                                         <q-icon name="account_circle"></q-icon>
                                     </template>
@@ -93,14 +93,15 @@
 	const store = useStore();
 	const app = useApp();
 	const formData = reactive({
-		username: '',
-		password:'',
+		email: 'admin@gmail.com',
+		password:'123456',
 	});
 	const pageReady = ref(true);
 	const loading = ref(false);
 	const loginErrorMsg = ref('');
 	const rememberUser = ref(false);
 	async function startLogin (){
+        
 		try{
 			loading.value = true;
 			loginErrorMsg.value = '';
@@ -113,8 +114,12 @@
 			const loginData= await store.dispatch('auth/login', payload);
 			loading.value = false;
 			if (loginData.token) {
+               
 				let nextUrl = route.query.nexturl || '/home'
+               
+                //console.log({logindata:loginData.token})
 				router.go(nextUrl);
+                
 			}
 			else{
 				router.push(loginData.nextpage);
