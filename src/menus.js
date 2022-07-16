@@ -7,27 +7,35 @@ export const AppMenus = {
   {
     "path": "/home",
     "label": "Home",
-    "icon": "extension",
+    "icon": "home",
     "iconcolor": "",
     "target": "",
     "submenu": []
   },
   {
-    "path": "/book",
-    "label": "Book",
-    "icon": "extension",
+    "path": "/aircraft",
+    "label": "Aircrafts",
+    "icon": "rocket_launch",
     "iconcolor": "",
     "target": "",
     "submenu": []
   },
   {
-    "path": "/user",
-    "label": "User",
-    "icon": "extension",
+    "path": "/traffic",
+    "label": "Traffic Logs",
+    "icon": "traffic",
     "iconcolor": "",
     "target": "",
     "submenu": []
-  }
+  },
+  // {
+  //   "path": "/user",
+  //   "label": "User",
+  //   "icon": "extension",
+  //   "iconcolor": "",
+  //   "target": "",
+  //   "submenu": []
+  // }
 ],
 	BookTableHeaderItems: [
   {
@@ -57,6 +65,44 @@ export const AppMenus = {
     "sortable": false,
     "name": "date_published",
     "field": "date_published"
+  },
+  {
+    "label": "Action",
+    "align": "right",
+    "sortable": false,
+    "name": "btnactions",
+    "field": ""
+  }
+],
+
+AircraftHeaderItems: [
+  {
+    "label": "Id",
+    "align": "left",
+    "sortable": false,
+    "name": "id",
+    "field": "id"
+  },
+  {
+    "label": "Type",
+    "align": "left",
+    "sortable": false,
+    "name": "type",
+    "field": "type"
+  },
+  {
+    "label": "Call Sign",
+    "align": "left",
+    "sortable": false,
+    "name": "callsign",
+    "field": "callsign"
+  },
+  {
+    "label": "State",
+    "align": "left",
+    "sortable": false,
+    "name": "state",
+    "field": "state"
   },
   {
     "label": "Action",

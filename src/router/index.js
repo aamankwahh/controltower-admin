@@ -19,12 +19,20 @@ let routes = [{
 		//Dashboard routes
 
 
-//book routes
-		{ path: '/book', name: 'booklist', component: () => import('pages/book/list.vue'), props: true },
-		{ path: '/book/index/:fieldName?/:fieldValue?', component: () => import('pages/book/list.vue'), props: true },
-		{ path: '/book/view/:id', name: 'bookview', component: () => import('pages/book/view.vue'), props: true },
-		{ path: '/book/add', name: 'bookadd', component: () => import('pages/book/add.vue'), props: true },
-		{ path: '/book/edit/:id', name: 'bookedit', component: () => import('pages/book/edit.vue'), props: true },
+
+		//aircraft routes
+		{ path: '/aircraft', name: 'aircraftlist', component: () => import('pages/aircraft/list.vue'), props: true },
+		{ path: '/aircraft/index/:fieldName?/:fieldValue?', component: () => import('pages/aircraft/list.vue'), props: true },
+		{ path: '/aircraft/view/:id', name: 'aircraftview', component: () => import('pages/book/view.vue'), props: true },
+		{ path: '/aircraft/add', name: 'aircraftadd', component: () => import('pages/book/add.vue'), props: true },
+		{ path: '/aircraft/edit/:id', name: 'aircraftedit', component: () => import('pages/book/edit.vue'), props: true },
+
+		//traffic routes
+		{ path: '/traffic', name: 'trafficlist', component: () => import('pages/traffic/list.vue'), props: true },
+		{ path: '/traffic/index/:fieldName?/:fieldValue?', component: () => import('pages/traffic/list.vue'), props: true },
+		{ path: '/traffic/view/:id', name: 'trafficview', component: () => import('pages/book/view.vue'), props: true },
+		{ path: '/traffic/add', name: 'trafficadd', component: () => import('pages/book/add.vue'), props: true },
+		{ path: '/traffic/edit/:id', name: 'trafficedit', component: () => import('pages/book/edit.vue'), props: true },
 
 //user routes
 		{ path: '/user', name: 'userlist', component: () => import('pages/user/list.vue'), props: true },

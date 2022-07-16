@@ -4,6 +4,7 @@ import { createStore } from 'vuex';
 import { app } from "./app.js"
 import { auth } from "./auth.js"
 import { book } from "./book.js"
+import { aircraft } from "./aircraft"
 import { user } from "./user.js"
 /*
  * If not building with SSR mode, you can
@@ -20,6 +21,7 @@ export default store(function (/* { ssrContext } */) {
       app,
       auth,
 		book,
+    aircraft,
 		user
     },
     // enable strict mode (adds overhead!)
