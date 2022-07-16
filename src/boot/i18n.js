@@ -1,13 +1,22 @@
 import { boot } from 'quasar/wrappers'
-import { createI18n } from 'vue-i18n'
-import messages from 'src/i18n'
+import { Quasar } from 'quasar';
+import { i18n, $t } from 'src/services/i18n';
+import { StorageService } from '../services/storage';
 
-export default boot(({ app }) => {
-  const i18n = createI18n({
-    locale: 'en-US',
-    messages
-  })
 
-  // Set i18n instance on app
-  app.use(i18n)
-})
+export default boot(async ({ app }) => {
+	const locale = StorageService.getLocale() || 'en-US';
+
+	try {
+		await import(`quasar/lang/${locale}`).then(lang => {
+			Quasar.lang.set(lang.default)
+		});
+	}
+	catch (err) {
+		console.error(err);
+	}
+
+	app.config.globalProperties.$i18n = i18n;
+	app.config.globalProperties.$t = $t;
+	
+});

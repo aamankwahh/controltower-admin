@@ -47,6 +47,11 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
+      env: {
+        APP_NAME: 'book2',
+        API_URL: 'http://localhost:8060/',
+        API_PATH: 'http://localhost:8060/api/'
+      },
       // transpile: false,
       // publicPath: '/',
 
