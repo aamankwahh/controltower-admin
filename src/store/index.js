@@ -5,6 +5,7 @@ import { app } from "./app.js"
 import { auth } from "./auth.js"
 import { book } from "./book.js"
 import { aircraft } from "./aircraft"
+import { traffic } from "./traffic"
 import { user } from "./user.js"
 /*
  * If not building with SSR mode, you can
@@ -22,6 +23,7 @@ export default store(function (/* { ssrContext } */) {
       auth,
 		book,
     aircraft,
+    traffic,
 		user
     },
     // enable strict mode (adds overhead!)

@@ -190,15 +190,15 @@
 		},
 		pageName : {
 			type : String,
-			default : 'book',
+			default : 'traffic',
 		},
 		routeName : {
 			type : String,
-			default : 'booklist',
+			default : 'trafficlist',
 		},
 		apiPath : {
 			type : String,
-			default : 'book/index',
+			default : 'traffic/index',
 		},
 		paginate: {
 			type: Boolean,
@@ -320,7 +320,7 @@
 	} = page.methods;
 	const pageTitle = computed({
 		get: function () {
-			return "Book"
+			return "Traffic Log"
 		}
 	});
 	useMeta(() => {
