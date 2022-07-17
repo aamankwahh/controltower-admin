@@ -28,9 +28,9 @@
                                         <div class="col-6">
                                             <q-checkbox v-model="rememberUser"> Remember Me</q-checkbox>
                                         </div>
-                                        <div class="col-6">
+                                        <!-- <div class="col-6">
                                             <q-btn to="/index/forgotpassword" class="text-danger" flat no-caps color="negative"> Reset Password?</q-btn>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <transition appear enter-active-class="animated bounceIn" leave-active-class="animated fadeOut">
                                         <q-banner dense  inline-actions rounded  class="bg-red-2 q-my-md" v-if="loginErrorMsg">
@@ -52,7 +52,7 @@
                                     </q-card-section>
                                 </div>
                             </q-card>
-                            <q-card  :flat="isSubPage" class="q-pa-md  nice-shadow-6">
+                            <!-- <q-card  :flat="isSubPage" class="q-pa-md  nice-shadow-6">
                                 <div class="row">
                                     <div class="col text-body1">
                                         Don't Have an Account?
@@ -62,7 +62,7 @@
                                         </q-btn>
                                     </div>
                                 </div>
-                            </q-card>
+                            </q-card> -->
                         </div>
                     </div>
                 </div>

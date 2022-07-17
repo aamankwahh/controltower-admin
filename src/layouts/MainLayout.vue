@@ -8,7 +8,7 @@
                     <!-- App logo and name -->
                     <q-btn no-caps flat stretch to="/home" class="q-mr-lg">
                         <q-avatar size="36">
-                            <img src="images/logo.png" alt="logo" class="my-5" />
+                            <img src="~assets/logo.png" alt="logo" class="my-5" />
                         </q-avatar>
                         <q-toolbar-title>{{ $appName }}</q-toolbar-title>
                     </q-btn>
@@ -71,7 +71,8 @@
             <!-- App left drawer -->
             <q-drawer v-model="leftDrawer" show-if-above  :width="250" :breakpoint="500" bordered  elevated :mini="leftDrawerMini">
                 <q-scroll-area class="fit   ">
-                    <q-img class="img-fluid" :ratio="16/9" :src="$utils.setImgUrl($auth.userPhoto, 'medium')">
+                    <!-- <q-img class="img-fluid" :ratio="16/9" :src="$utils.setImgUrl($auth.userPhoto, 'medium')"> -->
+                     <q-img class="img-fluid" :ratio="16/9" src="~assets/profile.jpg">
                     <template v-slot:error>
                         <div class="absolute-full text-h2 text-bold flex flex-center bg-grey-3 text-grey-8">!</div>
                     </template>
@@ -97,7 +98,7 @@
                     </q-menu>
                     </q-img>
                     <div v-show="!leftDrawerMini" class="text-bold text-center text-capitalize q-pa-sm">
-                        Hi {{ $auth.userName }}
+                        Hi Admin {{ $auth.userName }}
                     </div>
                     <q-separator></q-separator>
                     <q-list >
@@ -146,7 +147,7 @@
                 <q-toolbar class="  glossy">
                     <q-btn no-caps flat stretch to="/home">
                         <q-avatar size="36">
-                            <img src="images/logo.png" alt="logo" class="my-5" />
+                            <img src="~assets/logo.png" alt="logo" class="my-5" />
                         </q-avatar>
                         <q-toolbar-title>{{ $appName }}</q-toolbar-title>
                     </q-btn>
