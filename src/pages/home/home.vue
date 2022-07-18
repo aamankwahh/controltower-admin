@@ -59,7 +59,9 @@
                   {{ $utils.humanDatetime(weather.last_update) }}
                 </p>
 
-                <div class="text-subtitle1">{{ $utils.capitalize(weather.description) }}</div>
+                <div class="text-subtitle1">
+                  {{ $utils.capitalize(weather.description) }}
+                </div>
                 <div class="text-caption text-grey">Description</div>
                 <q-list>
                   <q-item clickable>
@@ -104,6 +106,42 @@
                 <q-btn flat color="primary"> Refresh </q-btn>
               </q-card-actions>
             </q-card>
+
+            <q-card class="q-pa-md q-mt-md" style="max-width: 350px">
+              <q-card-section>
+                <div class="text-h6">Request Logs</div>
+              </q-card-section>
+              <q-list>
+                <div v-for="log in request_logs" :key="log.id">
+                  <q-item>
+                  <q-item-section>
+                    <q-item-label>{{log.callsign}} : {{log.request_type}}</q-item-label>
+                     
+                    <q-item-label caption lines="2"
+                      >Action Request: {{log.requested_action}}</q-item-label
+                    >
+
+                    <q-item-label caption lines="2"
+                      >{{log.status==true?'SUCCESS':'FAILED'}}</q-item-label
+                    >
+                  </q-item-section>
+
+                  <q-item-section side top>
+                   
+                    <q-item-label caption>{{$utils.relativeDate(log.last_updated)}}</q-item-label>
+                    <q-icon v-if="log.status==true" name="task_alt" color="green" />
+                     <q-icon v-else name="cancel" color="red" />
+                  </q-item-section>
+                </q-item>
+
+                <q-separator spaced inset />
+                </div>
+
+               
+
+                
+              </q-list>
+            </q-card>
           </div>
           <div class="col-md-7">
             <q-card class="my-card">
@@ -127,25 +165,20 @@
                     <td class="text-right">{{ spot.spot_type }}</td>
 
                     <td class="text-right">
-                   
                       <q-chip
                         v-if="spot.available == true"
                         color="green"
                         text-color="white"
-                       
                       >
                         Yes
                       </q-chip>
-                      <q-chip
-                        v-else
-                        color="red"
-                        text-color="white"
-                       
-                      >
+                      <q-chip v-else color="red" text-color="white">
                         No
                       </q-chip>
                     </td>
-                    <td class="text-right">{{ spot.callsign==null?'-----':spot.callsign }}</td>
+                    <td class="text-right">
+                      {{ spot.callsign == null ? "-----" : spot.callsign }}
+                    </td>
                   </tr>
                 </tbody>
               </q-markup-table>
@@ -171,6 +204,8 @@ export default {
         wind_speed: "",
       },
       parking_spots: [],
+      request_logs:[],
+      interval:null
     };
   },
   mounted() {
@@ -179,6 +214,12 @@ export default {
   created() {
     this.getWeatherInfo();
     this.getParkingOverview();
+    
+    //Refresh 10 seconds
+    this.interval = setInterval(() => this.getRequestLogUpdates(), 10000);
+    // setTimeout(() => {
+    //           clearInterval(this.interval);
+    //         }, 1000);
   },
   methods: {
     getWeatherInfo() {
@@ -207,9 +248,21 @@ export default {
       axios
         .get("/parking/overview")
         .then((response) => {
-          console.log(response.data);
+          
           if (response.data.parking_spots) {
             this.parking_spots = response.data.parking_spots;
+          }
+        })
+        .catch(function (error) {});
+    },
+
+    getRequestLogUpdates() {
+      axios
+        .get("/logs/updates")
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.logs) {
+            this.request_logs = response.data.logs;
           }
         })
         .catch(function (error) {});
