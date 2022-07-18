@@ -7,14 +7,14 @@
             <div class="">
               <div class="row items-center q-col-gutter-sm q-px-sm">
                 <div class="col">
-                  <div class="text-h6 text-bold">Dashboard</div>
+                  <div class="text-h5 text-bold">Dashboard</div>
                 </div>
               </div>
             </div>
             <q-separator class="q-my-sm"></q-separator>
           </div>
         </div>
-        <div class="row q-col-gutter-lg">
+        <div class="row q-col-gutter-lg q-mt-xs">
           <div class="col-md-4">
             <q-card class="my-card">
               <!-- <q-img :max-width="200px" src="~assets/weather.jpg" /> -->
@@ -52,10 +52,14 @@
               </q-card-section>
 
               <q-card-section class="q-pt-none">
-                
-                  <p>Last Updated: <span class=" text-bold">{{weather.last_update}}</span></p>
-                
-                <div class="text-subtitle1">{{weather.description}}</div>
+                <p>
+                  Last Updated:
+                  <!-- <span class="text-bold">{{ weather.last_update }} </span> -->
+
+                  {{ $utils.humanDatetime(weather.last_update) }}
+                </p>
+
+                <div class="text-subtitle1">{{ $utils.capitalize(weather.description) }}</div>
                 <div class="text-caption text-grey">Description</div>
                 <q-list>
                   <q-item clickable>
@@ -64,7 +68,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{weather.temperature}}</q-item-label>
+                      <q-item-label>{{ weather.temperature }}</q-item-label>
                       <q-item-label caption>Temperature</q-item-label>
                     </q-item-section>
                   </q-item>
@@ -75,7 +79,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{weather.visibility}}</q-item-label>
+                      <q-item-label>{{ weather.visibility }}</q-item-label>
                       <q-item-label caption>Visibility</q-item-label>
                     </q-item-section>
                   </q-item>
@@ -86,7 +90,7 @@
                     </q-item-section>
 
                     <q-item-section>
-                      <q-item-label>{{weather.wind['speed']}}</q-item-label>
+                      <q-item-label>{{ weather.wind_speed }}</q-item-label>
                       <q-item-label caption>Wind Speed</q-item-label>
                     </q-item-section>
                   </q-item>
@@ -111,60 +115,42 @@
               <q-markup-table>
                 <thead>
                   <tr>
-                    <th class="text-left">Dessert (100g serving)</th>
-                    <th class="text-right">Calories</th>
-                    <th class="text-right">Fat (g)</th>
-                    <th class="text-right">Carbs (g)</th>
-                    <th class="text-right">Protein (g)</th>
-                    <th class="text-right">Sodium (mg)</th>
+                    <th class="text-left">Spot Name</th>
+                    <th class="text-right">Spot Type</th>
+                    <th class="text-right">Is Available</th>
+                    <th class="text-right">Aircraft(Occupancy)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="text-left">Frozen Yogurt</td>
-                    <td class="text-right">159</td>
-                    <td class="text-right">6</td>
-                    <td class="text-right">24</td>
-                    <td class="text-right">4</td>
-                    <td class="text-right">87</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Ice cream sandwich</td>
-                    <td class="text-right">237</td>
-                    <td class="text-right">9</td>
-                    <td class="text-right">37</td>
-                    <td class="text-right">4.3</td>
-                    <td class="text-right">129</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Eclair</td>
-                    <td class="text-right">262</td>
-                    <td class="text-right">16</td>
-                    <td class="text-right">23</td>
-                    <td class="text-right">6</td>
-                    <td class="text-right">337</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Cupcake</td>
-                    <td class="text-right">305</td>
-                    <td class="text-right">3.7</td>
-                    <td class="text-right">67</td>
-                    <td class="text-right">4.3</td>
-                    <td class="text-right">413</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left">Gingerbread</td>
-                    <td class="text-right">356</td>
-                    <td class="text-right">16</td>
-                    <td class="text-right">49</td>
-                    <td class="text-right">3.9</td>
-                    <td class="text-right">327</td>
+                  <tr v-for="spot in parking_spots" :key="spot.id">
+                    <td class="text-left">{{ spot.spot_name }}</td>
+                    <td class="text-right">{{ spot.spot_type }}</td>
+
+                    <td class="text-right">
+                   
+                      <q-chip
+                        v-if="spot.available == true"
+                        color="green"
+                        text-color="white"
+                       
+                      >
+                        Yes
+                      </q-chip>
+                      <q-chip
+                        v-else
+                        color="red"
+                        text-color="white"
+                       
+                      >
+                        No
+                      </q-chip>
+                    </td>
+                    <td class="text-right">{{ spot.callsign==null?'-----':spot.callsign }}</td>
                   </tr>
                 </tbody>
               </q-markup-table>
             </q-card>
           </div>
-          
         </div>
         <div></div>
       </div>
@@ -173,45 +159,61 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
- data(){
-  return{
-    weather:{},
-    parking:[]
-  }
- },
- mounted(){},
- created(){
-  //this.getWeatherInfo()
- },
- methods:{
-  getWeatherInfo(){
-      
+  data() {
+    return {
+      weather: {
+        description: "",
+        last_update: "",
+        temperature: "",
+        visibility: "",
+        wind_speed: "",
+      },
+      parking_spots: [],
+    };
+  },
+  mounted() {
+    //this.getWeatherInfo()
+  },
+  created() {
+    this.getWeatherInfo();
+    this.getParkingOverview();
+  },
+  methods: {
+    getWeatherInfo() {
       axios
         .get("/weather/update")
         .then((response) => {
-          console.log(response)
-          this.weather = response.data.weather;
-         
+          console.log(response);
+
+          if (response.data.weather) {
+            let weather = response.data.weather;
+            this.weather.description = weather.description;
+            this.weather.temperature = weather.temperature;
+            this.weather.visibility = weather.visibility;
+            this.weather.wind_speed = weather.wind["speed"];
+            this.weather.last_update = weather.last_update;
+          }
+          //alert('pause')
+          //this.weather = response.data.weather;
+
           //this.loading = false;
           //this.is_loading = false;
         })
         .catch(function (error) {});
-  },
-  getParkingOverview(){
-    axios
+    },
+    getParkingOverview() {
+      axios
         .get("/parking/overview")
         .then((response) => {
-          this.data = response.data;
-          if (this.data[0].weather) {
-          
+          console.log(response.data);
+          if (response.data.parking_spots) {
+            this.parking_spots = response.data.parking_spots;
           }
-          this.loading = false;
-          this.is_loading = false;
         })
         .catch(function (error) {});
-  }
- }
+    },
+  },
 };
 </script>

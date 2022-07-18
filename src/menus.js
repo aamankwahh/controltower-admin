@@ -6,7 +6,7 @@ export const AppMenus = {
 	navbarSideLeftItems: [
   {
     "path": "/home",
-    "label": "Home",
+    "label": "Dashboard",
     "icon": "home",
     "iconcolor": "",
     "target": "",
@@ -22,7 +22,7 @@ export const AppMenus = {
   },
   {
     "path": "/traffic",
-    "label": "Traffic Logs",
+    "label": "Historical Logs",
     "icon": "traffic",
     "iconcolor": "",
     "target": "",
@@ -75,14 +75,59 @@ export const AppMenus = {
   }
 ],
 
-AircraftHeaderItems: [
+RequestLogTableHeaderItems: [
+  // {
+  //   "label": "Id",
+  //   "align": "left",
+  //   "sortable": false,
+  //   "name": "id",
+  //   "field": "id"
+  // },
   {
-    "label": "Id",
+    "label": "Request Type",
     "align": "left",
     "sortable": false,
-    "name": "id",
-    "field": "id"
+    "name": "request_type",
+    "field": "request_type"
   },
+  {
+    "label": "Action",
+    "align": "left",
+    "sortable": false,
+    "name": "requested_action",
+    "field": "requested_action"
+  },
+  {
+    "label": "Status",
+    "align": "left",
+    "sortable": false,
+    "name": "status",
+    "field": "status"
+  },
+  {
+    "label": "Request By(Call Sign)",
+    "align": "left",
+    "sortable": false,
+    "name": "callsign",
+    "field": "callsign"
+  },
+  // {
+  //   "label": "Action",
+  //   "align": "right",
+  //   "sortable": false,
+  //   "name": "btnactions",
+  //   "field": ""
+  // }
+],
+
+AircraftHeaderItems: [
+  // {
+  //   "label": "Id",
+  //   "align": "left",
+  //   "sortable": false,
+  //   "name": "id",
+  //   "field": "id"
+  // },
   {
     "label": "Type",
     "align": "left",

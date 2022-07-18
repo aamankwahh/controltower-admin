@@ -63,7 +63,7 @@
                                                 separator="horizontal"
                                                 :dense="true"
                                                 v-model:selected="selectedItems"
-                                                selection="multiple"
+                                              
                                                 row-key="id" 
                                                 v-model:pagination="pagination"
                                                 hide-bottom
@@ -72,9 +72,9 @@
                                                 <!-- Start of Table Layout -->
                                                 <template v-slot:body="props">
                                                     <q-tr :class="{selected: isCurrentRecord(props.row)}" :props="props">
-                                                        <q-td auto-width>
+                                                        <!-- <q-td auto-width>
                                                             <q-checkbox dense v-model="props.selected"></q-checkbox>
-                                                        </q-td>
+                                                        </q-td> -->
                                                         <q-td  key="id" :props="props">
                                                             <q-btn padding="xs"   :rounded="false"  color="primary"  no-caps  unelevated   flat :to="`/book/view/${props.row.id}`">{{ props.row.id }}</q-btn>
                                                         </q-td>
