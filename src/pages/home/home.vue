@@ -112,7 +112,8 @@
                 <div class="text-h6">Request Logs</div>
               </q-card-section>
               <q-list>
-                <div v-for="log in request_logs" :key="log.id">
+                <div v-if="request_logs.length>0">
+                  <div v-for="log in request_logs" :key="log.id">
                   <q-item>
                   <q-item-section>
                     <q-item-label>{{log.callsign}} : {{log.request_type}}</q-item-label>
@@ -136,10 +137,11 @@
 
                 <q-separator spaced inset />
                 </div>
-
-               
-
-                
+                </div>
+                <div v-else>
+                  <p>No log data</p>
+                </div>
+              
               </q-list>
             </q-card>
           </div>
@@ -198,7 +200,7 @@ export default {
     return {
       weather: {
         description: "",
-        last_update: "",
+        last_update: "No weather data",
         temperature: "",
         visibility: "",
         wind_speed: "",
@@ -212,8 +214,10 @@ export default {
     //this.getWeatherInfo()
   },
   created() {
+    
     this.getWeatherInfo();
     this.getParkingOverview();
+    this.getRequestLogUpdates();
     
     //Refresh 10 seconds
     this.interval = setInterval(() => this.getRequestLogUpdates(), 10000);
@@ -226,6 +230,7 @@ export default {
       axios
         .get("/weather/update")
         .then((response) => {
+          //alert('getting weather update')
           console.log(response);
 
           if (response.data.weather) {
@@ -235,6 +240,10 @@ export default {
             this.weather.visibility = weather.visibility;
             this.weather.wind_speed = weather.wind["speed"];
             this.weather.last_update = weather.last_update;
+          }else{
+            //alert('no weather')
+            this.weather.last_update="Fetching Data. Please wait..."
+            this.fetchFromOpenWeather()
           }
           //alert('pause')
           //this.weather = response.data.weather;
@@ -260,9 +269,25 @@ export default {
       axios
         .get("/logs/updates")
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
           if (response.data.logs) {
             this.request_logs = response.data.logs;
+          }else{
+            this.last_update="No weather data";
+          }
+        })
+        .catch(function (error) {});
+    },
+
+     fetchFromOpenWeather() {
+      axios
+        .get("/public/fetchweatherapi")
+        .then((response) => {
+          
+          if (response.data.message=="success") {
+            this.getWeatherInfo();
+          }else{
+            
           }
         })
         .catch(function (error) {});
